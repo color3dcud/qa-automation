@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "qa-qutomation"
+version = "0.1.0"
+description = ""
+authors = ["Danil Vorobev <hsabuse@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "qa_qutomation"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.0"
+pytest-xdist = "^3.3.1"
+pytest-playwright = "^0.3.3"
+allure-pytest = "^2.13.2"
+faker = "^19.2.0"
+requests = "^2.31.0"
+pydantic = "^2.1.1"
+sqlalchemy = "^2.0.19"
+pymysql = "^1.1.0"
+fastapi = "^0.100.1"
+uvicorn = "^0.23.1"
+cryptography = "^41.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests"
+]
+markers = [
+    "UI",
+    "API"
+]
