@@ -17,4 +17,3 @@ class SettingDB(DevSettingDB):
 
 
 db_settings = DevSettingDB()
-pass
