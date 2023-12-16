@@ -13,11 +13,13 @@ fake = Faker()
     response_model=UsernameResponse
 )
 async def vk_id(username):
+
     if username == 'test_mock':
         return UsernameResponse(vk_id=username)
 
     elif username.lower() != 'not_found':
-        vk_id_value = f"{username}_{fake.profile()['username']}"
+        profile = fake.profile()
+        vk_id_value = f"{username}_{profile['username']}"
         return UsernameResponse(vk_id=vk_id_value)
 
     else:

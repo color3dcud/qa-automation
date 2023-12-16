@@ -1,0 +1,61 @@
+networks:
+  qa-automation:
+    external: true
+    name: qa-automation
+
+services:
+  project_db:
+    image: mysql:latest
+    hostname: "project_db"
+    container_name: "project_db"
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: '0000'
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./docker/myapp/myapp_db.sql:/dump/mysql.sql
+    command: --init-file /dump/mysql.sql
+    healthcheck:
+      test: [ 'CMD', 'mysqladmin', '-uroot', '-p0000', 'ping']
+      timeout: 1s
+      retries: 30
+    networks:
+      - qa-automation
+
+  vk_api:
+    image: "vk_api"
+    hostname: "vk_api"
+    container_name: "vk_api_mock"
+    tty: true
+    ports:
+      - "8000:8000"
+    build: docker/vk_api_mock
+    networks:
+      - qa-automation
+
+  my_app:
+    networks:
+      - qa-automation
+    image: "myapp"
+    hostname: "myapp"
+    container_name: "my_app"
+    tty: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker/myapp:/config
+
+    entrypoint: /app/myapp --config=/config/myapp.config
+
+    depends_on:
+      project_db:
+        condition: service_healthy
+
+      vk_api:
+        condition: service_started
+
+    healthcheck:
+      test: curl -sS http://0.0.0.0:8080/status || echo 1
+      timeout: 1s
+      retries: 30
