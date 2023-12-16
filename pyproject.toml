@@ -4,21 +4,21 @@ version = "0.1.0"
 description = ""
 authors = ["Danil Vorobev <hsabuse@yandex.ru>"]
 readme = "README.md"
-packages = [{include = "qa_qutomation"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.11"
 pytest = "^7.4.0"
 pytest-xdist = "^3.3.1"
-pytest-playwright = "^0.3.3"
+pytest-playwright = "^0.4.3"
 allure-pytest = "^2.13.2"
-faker = "^19.2.0"
+faker = "^21.0.0"
 requests = "^2.31.0"
 pydantic = "^2.1.1"
 sqlalchemy = "^2.0.19"
 pymysql = "^1.1.0"
-fastapi = "^0.100.1"
-uvicorn = "^0.23.1"
+fastapi = "^0.105"
+uvicorn = "^0.24"
 cryptography = "^41.0.2"
 
 
